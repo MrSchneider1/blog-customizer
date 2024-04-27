@@ -3,15 +3,14 @@ import { StrictMode, CSSProperties, useState } from 'react';
 import clsx from 'clsx';
 
 import { Article } from './components/article/Article';
-import { ArticleParamsForm, StylesToChange } from './components/article-params-form/ArticleParamsForm';
-import { defaultArticleState } from './constants/articleProps';
+import { ArticleParamsForm } from './components/article-params-form/ArticleParamsForm';
+import { StylesToChange, defaultArticleState } from './constants/articleProps';
 
 import './styles/index.scss';
 import styles from './styles/index.module.scss';
 
 const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
-
 
 
 const App = () => {
@@ -25,20 +24,13 @@ const App = () => {
 	} as CSSProperties)
 
 	const handleChangeStyles = (newStyles: StylesToChange) => {
-		const updatedStyles: CSSProperties = Object.keys(newStyles).reduce(
-			(acc, key) => ({
-			  ...acc,
-			  [key as keyof CSSProperties]: newStyles[key as keyof StylesToChange],
-			}),
-			{} as CSSProperties
-		  );
-		  setStylesToChange(updatedStyles);
+		setStylesToChange(newStyles as CSSProperties);
 	}
 
 	return (
 		<div
 			className={clsx(styles.main)}
-			style={{...stylesToChange}}>
+			style={{ ...stylesToChange }}>
 			<ArticleParamsForm onSubmitChange={handleChangeStyles} />
 			<Article />
 		</div>

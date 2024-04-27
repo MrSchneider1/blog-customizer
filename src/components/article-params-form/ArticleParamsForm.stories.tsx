@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { ArticleParamsForm, StylesToChange } from './ArticleParamsForm';
+import { ArticleParamsForm } from './ArticleParamsForm';
+import { StylesToChange } from 'src/constants/articleProps';
 
 
 const meta: Meta<typeof ArticleParamsForm> = {
