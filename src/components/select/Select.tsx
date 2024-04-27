@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, forwardRef } from 'react';
 import type { MouseEventHandler } from 'react';
 import clsx from 'clsx';
 import { OptionType } from 'src/constants/articleProps';
@@ -20,7 +20,9 @@ type SelectProps = {
 	title?: string;
 };
 
-export const Select = (props: SelectProps) => {
+export const Select = forwardRef<HTMLUListElement | null, SelectProps>((props, ref) => {
+
+	// console.log('Ref passed to Select:', ref);
 	const { options, placeholder, selected, onChange, onClose, title } = props;
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const rootRef = useRef<HTMLDivElement>(null);
@@ -42,11 +44,13 @@ export const Select = (props: SelectProps) => {
 		setIsOpen(false);
 		onChange?.(option);
 	};
+
 	const handlePlaceHolderClick: MouseEventHandler<HTMLDivElement> = () => {
 		setIsOpen((isOpen) => !isOpen);
 	};
 
 	return (
+		// <div ref={ref}> Hello </div>
 		<div className={styles.container}>
 			{title && (
 				<>
@@ -86,7 +90,7 @@ export const Select = (props: SelectProps) => {
 					</Text>
 				</div>
 				{isOpen && (
-					<ul className={styles.select} data-testid='selectDropdown'>
+					<ul ref={ref} className={styles.select} data-testid='selectDropdown'>
 						{options
 							.filter((option) => selected?.value !== option.value)
 							.map((option) => (
@@ -98,7 +102,8 @@ export const Select = (props: SelectProps) => {
 							))}
 					</ul>
 				)}
+				{/* <p ref={ref}>Hi</p> */}
 			</div>
 		</div>
 	);
-};
+});
