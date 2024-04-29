@@ -6,8 +6,8 @@ import { Text } from 'components/text';
 import arrowDown from 'src/images/arrow-down.svg';
 import { Option } from './Option';
 import { isFontFamilyClass } from './helpers/isFontFamilyClass';
-import { useEnterSubmit } from './hooks/useEnterSubmit';
-import { useOutsideClickClose } from './hooks/useOutsideClickClose';
+import { useOutsideClickClose } from '../hooks/useOutsideClickClose';
+import { useEnterSubmit } from '../hooks/useEnterSubmit';
 
 import styles from './Select.module.scss';
 
@@ -20,8 +20,14 @@ type SelectProps = {
 	title?: string;
 };
 
-export const Select = (props: SelectProps) => {
-	const { options, placeholder, selected, onChange, onClose, title } = props;
+export const Select = ({
+	options,
+	placeholder,
+	selected,
+	onChange,
+	onClose,
+	title,
+}: SelectProps) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const rootRef = useRef<HTMLDivElement>(null);
 	const placeholderRef = useRef<HTMLDivElement>(null);
@@ -42,6 +48,7 @@ export const Select = (props: SelectProps) => {
 		setIsOpen(false);
 		onChange?.(option);
 	};
+
 	const handlePlaceHolderClick: MouseEventHandler<HTMLDivElement> = () => {
 		setIsOpen((isOpen) => !isOpen);
 	};
