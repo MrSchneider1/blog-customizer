@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { ArticleParamsForm } from './ArticleParamsForm';
-import { StylesToChange } from 'src/constants/articleProps';
-
+import { ArticleStateType } from 'src/constants/articleProps';
 
 const meta: Meta<typeof ArticleParamsForm> = {
 	component: ArticleParamsForm,
@@ -13,13 +12,13 @@ type Story = StoryObj<typeof ArticleParamsForm>;
 
 export const ArticleParamsFormStory: Story = {
 	render: () => {
-		const handleChangeStyles = (newStyles: StylesToChange) => {
+		const handleChangeStyles = (newStyles: ArticleStateType) => {
 			console.log('стили изменились:', newStyles);
-		  }
+		};
 
 		return (
 			<>
-				<ArticleParamsForm onSubmitChange={handleChangeStyles}/>
+				<ArticleParamsForm onSubmitChange={handleChangeStyles} />
 			</>
 		);
 	},

@@ -1,4 +1,4 @@
-import { useState, useRef, forwardRef } from 'react';
+import { useState, useRef } from 'react';
 import type { MouseEventHandler } from 'react';
 import clsx from 'clsx';
 import { OptionType } from 'src/constants/articleProps';
@@ -6,8 +6,8 @@ import { Text } from 'components/text';
 import arrowDown from 'src/images/arrow-down.svg';
 import { Option } from './Option';
 import { isFontFamilyClass } from './helpers/isFontFamilyClass';
-import { useEnterSubmit } from './hooks/useEnterSubmit';
-import { useOutsideClickClose } from './hooks/useOutsideClickClose';
+import { useOutsideClickClose } from '../hooks/useOutsideClickClose';
+import { useEnterSubmit } from '../hooks/useEnterSubmit';
 
 import styles from './Select.module.scss';
 
@@ -20,10 +20,14 @@ type SelectProps = {
 	title?: string;
 };
 
-export const Select = forwardRef<HTMLUListElement | null, SelectProps>((props, ref) => {
-
-	// console.log('Ref passed to Select:', ref);
-	const { options, placeholder, selected, onChange, onClose, title } = props;
+export const Select = ({
+	options,
+	placeholder,
+	selected,
+	onChange,
+	onClose,
+	title,
+}: SelectProps) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const rootRef = useRef<HTMLDivElement>(null);
 	const placeholderRef = useRef<HTMLDivElement>(null);
@@ -50,7 +54,6 @@ export const Select = forwardRef<HTMLUListElement | null, SelectProps>((props, r
 	};
 
 	return (
-		// <div ref={ref}> Hello </div>
 		<div className={styles.container}>
 			{title && (
 				<>
@@ -90,7 +93,7 @@ export const Select = forwardRef<HTMLUListElement | null, SelectProps>((props, r
 					</Text>
 				</div>
 				{isOpen && (
-					<ul ref={ref} className={styles.select} data-testid='selectDropdown'>
+					<ul className={styles.select} data-testid='selectDropdown'>
 						{options
 							.filter((option) => selected?.value !== option.value)
 							.map((option) => (
@@ -102,8 +105,7 @@ export const Select = forwardRef<HTMLUListElement | null, SelectProps>((props, r
 							))}
 					</ul>
 				)}
-				{/* <p ref={ref}>Hi</p> */}
 			</div>
 		</div>
 	);
-});
+};

@@ -179,11 +179,11 @@ export const defaultArticleState = {
 export type ArticleStateType = typeof defaultArticleState;
 
 export type StylesToChange = {
-	'--font-family': string,
-	'--font-size': string,
-	'--font-color': string,
-	'--container-width': string,
-	'--bg-color': string
-}
+	'--font-family': string;
+	'--font-size': string;
+	'--font-color': string;
+	'--container-width': string;
+	'--bg-color': string;
+};
 
-export type OnSubmitChange = (newStyles: StylesToChange) => void;
+export type OnSubmitChange = (newStyles: ArticleStateType) => void;
